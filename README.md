@@ -1,0 +1,2 @@
+# Kanboard Suche Plugin
+
