@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanboard\Plugin\KanboardSuche;
+namespace Kanboard\Plugin\AdvancedFulltextSearch;
 
 
 use Kanboard\Core\Plugin\Base;
@@ -14,12 +14,12 @@ class Plugin extends Base
 
     public function getPluginName()
     {
-        return 'Kanboard Suche';
+        return 'AdvancedFulltextSearch';
     }
 
     public function getPluginDescription()
     {
-        return t('This plugin is used for search in Kanboard');
+        return t('This plugin is used for advanced fulltext search in Kanboard');
     }
 
     public function getPluginAuthor()
@@ -29,12 +29,11 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.0';
+        return '1.0.0';
     }
 
     public function getPluginHomepage()
     {
         return '';
     }
-
 }
