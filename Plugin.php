@@ -10,9 +10,9 @@ class Plugin extends Base
 {
     public function initialize()
     {
-
         $this->template->hook->attach("template:config:application",
             "AdvancedFulltextSearch:config/advanced-search-filter");
+
         if ($this->configModel->get('adv_search_filter', 1) == 1) {
             $this->container->extend('taskLexer', function ($taskLexer, $c) {
                 /**

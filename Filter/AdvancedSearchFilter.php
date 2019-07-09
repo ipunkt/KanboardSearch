@@ -21,27 +21,6 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
     private $db;
 
     /**
-     * Current user id
-     *
-     * @access private
-     * @var int
-     */
-    private $currentUserId = 0;
-
-    /**
-     * Set current user id
-     *
-     * @access public
-     * @param integer $userId
-     * @return AdvancedSearchFilter
-     */
-    public function setCurrentUserId($userId)
-    {
-        $this->currentUserId = $userId;
-        return $this;
-    }
-
-    /**
      * Set database object
      *
      * @access public
