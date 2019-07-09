@@ -5,7 +5,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/app/plugins/KanboardSuche
+      - .:/var/www/app/plugins/AdvancedFulltextSearch
+      - .:/usr/share/php7
     environment:
       DATABASE_URL: mysql://kb:kb-secret@db/kanboard
   db:
@@ -16,3 +17,11 @@ services:
       MYSQL_DATABASE: kanboard
       MYSQL_USER: kb
       MYSQL_PASSWORD: kb-secret
+  rights:
+    image: busybox
+    command: sh -c 'while true ; do chown -R $${USER_ID}.$${GROUP_ID} /target ; sleep 2s ; done'
+    volumes:
+      - .:/target
+    environment:
+      - USER_ID=10017
+      - GROUP_ID=10003
