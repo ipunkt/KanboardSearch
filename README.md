@@ -1,7 +1,7 @@
-# Kanboard Suche Plugin
+# Kanboard Search Plugin
 
 
-Suche nach einem Dateinamen einer hochgeladenen Datei
-Suche nach einem Teil eines Aufgabentitels
-Suche nach einem Teil eines Teilaufgabentitels
-Suche nach einem Teil eines Kommentars
+This Plugin is created for advanced fulltext search within a given Project in Kanboard.
+The search will be performed in Task title, Task description, Task comments and Subtask title all together.
+
+Plugin on and off switch located in Application Settings.
