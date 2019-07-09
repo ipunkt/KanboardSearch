@@ -11,15 +11,19 @@ class Plugin extends Base
     public function initialize()
     {
 
-        $this->container->extend('taskLexer', function($taskLexer, $c) {
-            /**
-             * @var LexerBuilder $taskLexer
-             */
-            $taskLexer->withFilter(AdvancedSearchFilter::getInstance()
-                ->setDatabase($c['db']), true);
+        $this->template->hook->attach("template:config:application",
+            "AdvancedFulltextSearch:config/advanced-search-filter");
+        if ($this->configModel->get('adv_search_filter', 1) == 1) {
+            $this->container->extend('taskLexer', function ($taskLexer, $c) {
+                /**
+                 * @var LexerBuilder $taskLexer
+                 */
+                $taskLexer->withFilter(AdvancedSearchFilter::getInstance()
+                    ->setDatabase($c['db']), true);
 
-            return $taskLexer;
-        });
+                return $taskLexer;
+            });
+        };
     }
 
     public function getPluginName()
@@ -29,7 +33,7 @@ class Plugin extends Base
 
     public function getPluginDescription()
     {
-        return t('This plugin is used for advanced fulltext search in Kanboard');
+        return t('This plugin is used for advanced fulltext search within given Project in Kanboard');
     }
 
     public function getPluginAuthor()
