@@ -17,3 +17,11 @@ services:
       MYSQL_DATABASE: kanboard
       MYSQL_USER: kb
       MYSQL_PASSWORD: kb-secret
+  rights:
+    image: busybox
+    command: sh -c 'while true ; do chown -R $${USER_ID}.$${GROUP_ID} /target ; sleep 2s ; done'
+    volumes:
+      - .:/target
+    environment:
+      - USER_ID=10017
+      - GROUP_ID=10003

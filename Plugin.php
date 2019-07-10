@@ -10,20 +10,20 @@ class Plugin extends Base
 {
     public function initialize()
     {
-        $this->template->hook->attach("template:config:application",
-            "AdvancedFulltextSearch:config/advanced-search-filter");
+        $this->template->hook->attach("template:config:sidebar",
+            "AdvancedFulltextSearch:config/sidebar");
 
-        if ($this->configModel->get('adv_search_filter', 1) == 1) {
-            $this->container->extend('taskLexer', function ($taskLexer, $c) {
-                /**
-                 * @var LexerBuilder $taskLexer
-                 */
-                $taskLexer->withFilter(AdvancedSearchFilter::getInstance()
-                    ->setDatabase($c['db']), true);
+        $this->route->addRoute('settings/advancedsearch', 'AdvancedSearchController', 'index',
+            'AdvancedFulltextSearch');
+        $this->container->extend('taskLexer', function ($taskLexer, $c) {
+            /**
+             * @var LexerBuilder $taskLexer
+             */
+            $taskLexer->withFilter(AdvancedSearchFilter::getInstance()
+                ->setDatabase($c['db']), true);
 
-                return $taskLexer;
-            });
-        };
+            return $taskLexer;
+        });
     }
 
     public function getPluginName()
