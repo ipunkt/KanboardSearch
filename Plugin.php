@@ -13,7 +13,7 @@ class Plugin extends Base
         $this->template->hook->attach("template:config:sidebar",
             "AdvancedFulltextSearch:config/sidebar");
 
-        $this->route->addRoute('settings/advancedsearch', 'AdvancedSearchController', 'index',
+        $this->route->addRoute('settings/advancedsearch', 'AdvancedSearchController', 'asf',
             'AdvancedFulltextSearch');
         $this->container->extend('taskLexer', function ($taskLexer, $c) {
             /**

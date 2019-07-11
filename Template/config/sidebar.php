@@ -1,3 +1,3 @@
-<li <?= $this->app->checkMenuSelection('AdvancedSearchController', 'index') ?>>
-    <?= $this->url->link(t('Advanced Search Filter settings'), 'AdvancedSearchController', 'index') ?>
+<li <?= $this->app->checkMenuSelection('AdvancedSearchController', 'asf') ?>>
+    <?= $this->url->link(t('Advanced Search Filter settings'), 'AdvancedSearchController', 'asf') ?>
 </li>
