@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= t('Advanced Search Filter') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('AdvancedSearchController', 'save', array('redirect' => 'advanced-search-filter')) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('AdvancedFulltextSearch:AdvancedSearchController', 'save', array('redirect' => 'index')) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <fieldset>
@@ -19,6 +19,7 @@
         <?= $this->form->checkbox('subtask_search', t('Enable "Search in Subtask Title"'), 1, $values['subtask_search'] == 1) ?>
     </fieldset>
 
+    <?= $this->hook->render('template:config:advanced-search-filter', array('values' => $values, 'errors' => $errors)) ?>
 
     <div class="form-actions">
         <button type="submit" class="btn btn-blue"><?= t('Save') ?></button>

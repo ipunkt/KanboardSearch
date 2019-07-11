@@ -35,15 +35,15 @@ class AdvancedSearchController extends BaseController
     public function save()
     {
         $values =  $this->request->getValues();
-        $redirect = $this->request->getStringParam('redirect', 'advanced-search-filter');
-var_dump($redirect);
-die;
+        $redirect = $this->request->getStringParam('redirect','index');
         switch ($redirect) {
-            case 'advanced-search-filter':
-                $values += array('comment_search' => 0);
-                $values += array('title_search' => 0);
-                $values += array('description_search' => 0);
-                $values += array('subtask_search' => 0);
+            case 'index':
+                $values += array(
+                    'comment_search' => 0,
+                    'title_search' => 0,
+                    'description_search' => 0,
+                    'subtask_search' => 0,
+                    );
                 break;
         }
 
@@ -53,8 +53,9 @@ die;
         } else {
             $this->flash->failure(t('Unable to save your settings.'));
         }
-
-        $this->response->redirect($this->helper->url->to('AdvancedFulltextSearch:AdvancedSearchController', $redirect));
+        $values = $this->configModel->getAll();
+        $this->response->redirect($this->helper->url->to('AdvancedSearchController', $redirect, array('plugin' => 'AdvancedFulltextSearch',
+            'values' => $values)));
     }
 
     /**
@@ -66,7 +67,6 @@ die;
     {
         $values = $this->configModel->getAll();
         $this->response->html($this->helper->layout->config('AdvancedFulltextSearch:config/advanced-search-filter', array(
-            'values' => $values,
             'title' => t('Settings').' &gt; '.t('Advanced Search Filter settings'),
         )));
     }
