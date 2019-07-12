@@ -7,7 +7,9 @@ use Kanboard\Filter\BaseFilter;
 use Kanboard\Model\CommentModel;
 use Kanboard\Model\SubtaskModel;
 use Kanboard\Model\TaskModel;
+use Kanboard\Model\ConfigModel;
 use PicoDb\Database;
+
 
 class AdvancedSearchFilter extends BaseFilter implements FilterInterface
 {
@@ -21,6 +23,11 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
     private $db;
 
     /**
+     * @var ConfigModel
+     */
+    private $config;
+
+    /**
      * Set database object
      *
      * @access public
@@ -30,6 +37,19 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
     public function setDatabase(Database $db)
     {
         $this->db = $db;
+        return $this;
+    }
+
+    /**
+     * Set configModel object
+     *
+     * @access public
+     * @param ConfigModel $config
+     * @return AdvancedSearchFilter
+     */
+    public function setConfigModel(ConfigModel $config)
+    {
+        $this->config = $config;
         return $this;
     }
 
@@ -67,7 +87,6 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
         return $this;
     }
 
-
     /**
      * Get task ids having this comment
      *
@@ -76,10 +95,13 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      */
     protected function getTaskIdsWithGivenComment()
     {
-        return $this->db
-            ->table(CommentModel::TABLE)
-            ->ilike(CommentModel::TABLE . '.comment', '%' . $this->value . '%')
-            ->findAllByColumn(CommentModel::TABLE . '.task_id');
+        if($this->config->get('comment_search') == 1) {
+            return $this->db
+                ->table(CommentModel::TABLE)
+                ->ilike(CommentModel::TABLE . '.comment', '%' . $this->value . '%')
+                ->findAllByColumn(CommentModel::TABLE . '.task_id');
+        }
+        return array();
     }
 
 
@@ -91,10 +113,13 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      */
     protected function getTaskIdsWithGivenDescription()
     {
-        return $this->db
-            ->table(TaskModel::TABLE)
-            ->ilike(TaskModel::TABLE . '.description', '%' . $this->value . '%')
-            ->findAllByColumn(TaskModel::TABLE . '.id');
+        if($this->config->get('description_search') == 1) {
+            return $this->db
+                ->table(TaskModel::TABLE)
+                ->ilike(TaskModel::TABLE . '.description', '%' . $this->value . '%')
+                ->findAllByColumn(TaskModel::TABLE . '.id');
+        }
+        return array();
     }
 
 
@@ -106,10 +131,13 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      */
     private function getTaskIdsWithGivenTitles()
     {
-        return $this->db
-            ->table(TaskModel::TABLE)
-            ->ilike(TaskModel::TABLE . '.title', '%' . $this->value . '%')
-            ->findAllByColumn(TaskModel::TABLE . '.id');
+        if($this->config->get('title_search') == 1) {
+            return $this->db
+                ->table(TaskModel::TABLE)
+                ->ilike(TaskModel::TABLE . '.title', '%' . $this->value . '%')
+                ->findAllByColumn(TaskModel::TABLE . '.id');
+        }
+        return array();
     }
 
 
@@ -121,9 +149,12 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      */
     private function getTaskIdsWithGivenSubtaskTitles()
     {
-        return $this->db
-            ->table(SubtaskModel::TABLE)
-            ->ilike(SubtaskModel::TABLE . '.title', '%' . $this->value . '%')
-            ->findAllByColumn(SubtaskModel::TABLE . '.task_id');
+        if($this->config->get('subtask_search') == 1) {
+            return $this->db
+                ->table(SubtaskModel::TABLE)
+                ->ilike(SubtaskModel::TABLE . '.title', '%' . $this->value . '%')
+                ->findAllByColumn(SubtaskModel::TABLE . '.task_id');
+        }
+        return array();
     }
 }
