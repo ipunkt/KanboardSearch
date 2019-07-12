@@ -5,11 +5,6 @@ namespace Kanboard\Plugin\AdvancedFulltextSearch\Controller;
 
 use Kanboard\Controller\BaseController;
 
-/**
- * ASF Controller
- *
- * @package  controller
- */
 
 class AdvancedSearchController extends BaseController
 {
@@ -35,7 +30,7 @@ class AdvancedSearchController extends BaseController
     public function save()
     {
         $values =  $this->request->getValues();
-        $redirect = $this->request->getStringParam('redirect','index');
+        $redirect = $this->request->getStringParam('redirect', 'index');
         switch ($redirect) {
             case 'index':
                 $values += array(
@@ -53,21 +48,6 @@ class AdvancedSearchController extends BaseController
         } else {
             $this->flash->failure(t('Unable to save your settings.'));
         }
-        $values = $this->configModel->getAll();
-        $this->response->redirect($this->helper->url->to('AdvancedSearchController', $redirect, array('plugin' => 'AdvancedFulltextSearch',
-            'values' => $values)));
-    }
-
-    /**
-     * Display the ASF settings page
-     *
-     * @access public
-     */
-    public function asf()
-    {
-        $values = $this->configModel->getAll();
-        $this->response->html($this->helper->layout->config('AdvancedFulltextSearch:config/advanced-search-filter', array(
-            'title' => t('Settings').' &gt; '.t('Advanced Search Filter settings'),
-        )));
+        $this->response->redirect($this->helper->url->to('AdvancedSearchController', 'index', array('plugin' => 'AdvancedFulltextSearch')));
     }
 }

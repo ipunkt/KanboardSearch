@@ -15,12 +15,14 @@ class Plugin extends Base
 
         $this->route->addRoute('settings/advancedsearch', 'AdvancedSearchController', 'index',
             'AdvancedFulltextSearch');
+
         $this->container->extend('taskLexer', function ($taskLexer, $c) {
             /**
              * @var LexerBuilder $taskLexer
              */
             $taskLexer->withFilter(AdvancedSearchFilter::getInstance()
-                ->setDatabase($c['db']), true);
+                ->setDatabase($c['db'])
+                ->setConfigModel($this->configModel), true);
 
             return $taskLexer;
         });
@@ -33,7 +35,7 @@ class Plugin extends Base
 
     public function getPluginDescription()
     {
-        return t('This plugin is used for advanced fulltext search within given Project in Kanboard');
+        return t('This plugin is used for advanced fulltext search within given Project');
     }
 
     public function getPluginAuthor()

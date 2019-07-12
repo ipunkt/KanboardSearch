@@ -1,7 +1,7 @@
 <div class="page-header">
     <h2><?= t('Advanced Search Filter') ?></h2>
 </div>
-<form method="post" action="<?= $this->url->href('AdvancedFulltextSearch:AdvancedSearchController', 'save', array('redirect' => 'index')) ?>" autocomplete="off">
+<form method="post" action="<?= $this->url->href('AdvancedSearchController', 'save', ['plugin' => 'AdvancedFulltextSearch']) ?>" autocomplete="off">
     <?= $this->form->csrf() ?>
 
     <fieldset>
