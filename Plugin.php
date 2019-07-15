@@ -4,6 +4,7 @@ namespace Kanboard\Plugin\AdvancedFulltextSearch;
 
 use Kanboard\Core\Filter\LexerBuilder;
 use Kanboard\Core\Plugin\Base;
+use Kanboard\Core\Translator;
 use Kanboard\Plugin\AdvancedFulltextSearch\Filter\AdvancedSearchFilter;
 
 class Plugin extends Base
@@ -29,6 +30,11 @@ class Plugin extends Base
         });
     }
 
+    public function onStartup()
+    {
+        Translator::load($this->languageModel->getCurrentLanguage(), __DIR__.'/Locale');
+    }
+
     public function getPluginName()
     {
         return 'AdvancedFulltextSearch';
@@ -36,7 +42,7 @@ class Plugin extends Base
 
     public function getPluginDescription()
     {
-        return t('This plugin is used for advanced fulltext search within given Project');
+        return t('This plugin is used for advanced fulltext search within all Projects');
     }
 
     public function getPluginAuthor()
