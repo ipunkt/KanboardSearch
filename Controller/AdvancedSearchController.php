@@ -9,7 +9,7 @@ use Kanboard\Controller\BaseController;
 class AdvancedSearchController extends BaseController
 {
     /**
-     * Display the ASF page
+     * Display the ASF settings page
      *
      * @access public
      */
@@ -38,6 +38,7 @@ class AdvancedSearchController extends BaseController
                     'title_search' => 0,
                     'description_search' => 0,
                     'subtask_search' => 0,
+                    'attachment_search' => 0
                     );
                 break;
         }
