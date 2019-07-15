@@ -22,7 +22,8 @@ class Plugin extends Base
              */
             $taskLexer->withFilter(AdvancedSearchFilter::getInstance()
                 ->setDatabase($c['db'])
-                ->setConfigModel($this->configModel), true);
+                ->setConfigModel($this->configModel)
+                ->setFileModel($this->taskFileModel), true);
 
             return $taskLexer;
         });

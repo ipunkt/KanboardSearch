@@ -9,6 +9,14 @@ services:
       - .:/usr/share/php7
     environment:
       DATABASE_URL: mysql://kb:kb-secret@db/kanboard
+  pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8000:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: kb
+      PMA_PASSWORD: kb-secret
   db:
     image: mariadb:latest
     command: --default-authentication-plugin=mysql_native_password

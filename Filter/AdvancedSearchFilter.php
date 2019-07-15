@@ -5,6 +5,7 @@ namespace Kanboard\Plugin\AdvancedFulltextSearch\Filter;
 use Kanboard\Core\Filter\FilterInterface;
 use Kanboard\Filter\BaseFilter;
 use Kanboard\Model\CommentModel;
+use Kanboard\Model\TaskFileModel;
 use Kanboard\Model\SubtaskModel;
 use Kanboard\Model\TaskModel;
 use Kanboard\Model\ConfigModel;
@@ -26,6 +27,11 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      * @var ConfigModel
      */
     private $config;
+
+    /**
+     * @var TaskFileModel
+     */
+    private $file;
 
     /**
      * Set database object
@@ -54,6 +60,19 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
     }
 
     /**
+     * Set TaskFileModel object
+     *
+     * @access public
+     * @param TaskFileModel $file
+     * @return AdvancedSearchFilter
+     */
+    public function setFileModel(TaskFileModel $file)
+    {
+        $this->file = $file;
+        return $this;
+    }
+
+    /**
      * Get search attribute
      *
      * @access public
@@ -76,8 +95,9 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
         $titlesTaskIds = $this->getTaskIdsWithGivenTitles();
         $descriptionTaskIds = $this->getTaskIdsWithGivenDescription();
         $subtaskTitlesIds = $this->getTaskIdsWithGivenSubtaskTitles();
+        $attachmentIds = $this->getTaskIdsWithGivenAttachmentName();
 
-        $task_ids = array_merge($commentTaskIds, $titlesTaskIds, $descriptionTaskIds, $subtaskTitlesIds);
+        $task_ids = array_merge($commentTaskIds, $titlesTaskIds, $descriptionTaskIds, $subtaskTitlesIds, $attachmentIds);
 
         if (empty($task_ids)) {
             $task_ids = array(-1);
@@ -154,6 +174,24 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
                 ->table(SubtaskModel::TABLE)
                 ->ilike(SubtaskModel::TABLE . '.title', '%' . $this->value . '%')
                 ->findAllByColumn(SubtaskModel::TABLE . '.task_id');
+        }
+        return array();
+    }
+
+
+    /**
+     * Get task ids having this Attachment Name
+     *
+     * @access public
+     * @return array
+     */
+    private function getTaskIdsWithGivenAttachmentName()
+    {
+        if($this->config->get('attachment_search') == 1) {
+            return $this->db
+                ->table(TaskFileModel::TABLE)
+                ->ilike(TaskFileModel::TABLE . '.name', '%' . $this->value . '%')
+                ->findAllByColumn(TaskFileModel::TABLE . '.task_id');
         }
         return array();
     }
