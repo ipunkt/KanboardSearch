@@ -1,4 +1,4 @@
 <li <?= $this->app->checkMenuSelection('AdvancedSearchController', 'index') ?>>
     <?= $this->url->link(t('Advanced Search Filter settings'), 'AdvancedSearchController', 'index',
-        ['plugin' => 'AdvancedFulltextSearch']) ?>
+        ['plugin' => 'KanboardSearchPlugin']) ?>
 </li>

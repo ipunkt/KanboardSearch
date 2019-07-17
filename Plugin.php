@@ -1,21 +1,21 @@
 <?php
 
-namespace Kanboard\Plugin\AdvancedFulltextSearch;
+namespace Kanboard\Plugin\KanboardSearchPlugin;
 
 use Kanboard\Core\Filter\LexerBuilder;
 use Kanboard\Core\Plugin\Base;
 use Kanboard\Core\Translator;
-use Kanboard\Plugin\AdvancedFulltextSearch\Filter\AdvancedSearchFilter;
+use Kanboard\Plugin\KanboardSearchPlugin\Filter\AdvancedSearchFilter;
 
 class Plugin extends Base
 {
     public function initialize()
     {
         $this->template->hook->attach("template:config:sidebar",
-            "AdvancedFulltextSearch:config/sidebar");
+            "KanboardSearchPlugin:config/sidebar");
 
         $this->route->addRoute('settings/advancedsearch', 'AdvancedSearchController', 'index',
-            'AdvancedFulltextSearch');
+            'KanboardSearchPlugin');
 
         $this->container->extend('taskLexer', function ($taskLexer, $c) {
             /**
@@ -37,7 +37,7 @@ class Plugin extends Base
 
     public function getPluginName()
     {
-        return 'AdvancedFulltextSearch';
+        return 'KanboardSearchPlugin';
     }
 
     public function getPluginDescription()

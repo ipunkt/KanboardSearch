@@ -5,7 +5,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/app/plugins/AdvancedFulltextSearch
+      - .:/var/www/app/plugins/KanboardSearchPlugin
       - .:/usr/share/php7
     environment:
       DATABASE_URL: mysql://kb:kb-secret@db/kanboard

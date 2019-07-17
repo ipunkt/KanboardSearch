@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanboard\Plugin\AdvancedFulltextSearch\Controller;
+namespace Kanboard\Plugin\KanboardSearchPlugin\Controller;
 
 
 use Kanboard\Controller\BaseController;
@@ -15,7 +15,7 @@ class AdvancedSearchController extends BaseController
      */
     public function index()
     {
-        $this->response->html($this->helper->layout->config('AdvancedFulltextSearch:config/advanced-search-filter', array(
+        $this->response->html($this->helper->layout->config('KanboardSearchPlugin:config/advanced-search-filter', array(
             'db_size' => $this->configModel->getDatabaseSize(),
             'db_version' => $this->db->getDriver()->getDatabaseVersion(),
             'user_agent' => $this->request->getServerVariable('HTTP_USER_AGENT'),
@@ -49,6 +49,6 @@ class AdvancedSearchController extends BaseController
         } else {
             $this->flash->failure(t('Unable to save your settings.'));
         }
-        $this->response->redirect($this->helper->url->to('AdvancedSearchController', 'index', array('plugin' => 'AdvancedFulltextSearch')));
+        $this->response->redirect($this->helper->url->to('AdvancedSearchController', 'index', array('plugin' => 'KanboardSearchPlugin')));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanboard\Plugin\AdvancedFulltextSearch\Filter;
+namespace Kanboard\Plugin\KanboardSearchPlugin\Filter;
 
 use Kanboard\Core\Filter\FilterInterface;
 use Kanboard\Filter\BaseFilter;
