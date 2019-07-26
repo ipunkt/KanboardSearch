@@ -57,6 +57,6 @@ class Plugin extends Base
 
     public function getPluginHomepage()
     {
-        return '';
+        return 'https://www.ipunkt.biz/unternehmen/opensource';
     }
 }
