@@ -21,6 +21,9 @@
     <fieldset>
         <?= $this->form->checkbox('attachment_search', t('Enable "Search in Attachments"'), 1, $values['attachment_search'] == 1) ?>
     </fieldset>
+    <fieldset>
+        <?= $this->form->checkbox('id_search', t('Enable "Search in Ids"'), 1, $values['id_search'] == 1) ?>
+    </fieldset>
 
     <?= $this->hook->render('template:config:advanced-search-filter', array('values' => $values, 'errors' => $errors)) ?>
 
