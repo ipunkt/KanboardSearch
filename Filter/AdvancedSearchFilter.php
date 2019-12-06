@@ -205,7 +205,7 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
 
     private function getTaskIdsWithGivenId()
 	{
-		if(is_numeric($this->value) and $this->config->get('id_search') == 1) {
+		if(ctype_digit($this->value) and $this->config->get('id_search') == 1) {
 			return $this->db
 				->table(TaskModel::TABLE)
 				->eq(TaskModel::TABLE . '.id', $this->value)
