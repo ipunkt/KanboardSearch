@@ -5,8 +5,8 @@ services:
     ports:
       - "80:80"
     volumes:
+      - ./dev/docker/conf.d/local.ini:/etc/php7/conf.d/local.ini
       - .:/var/www/app/plugins/KanboardSearchPlugin
-      - .:/usr/share/php7
     environment:
       DATABASE_URL: mysql://kb:kb-secret@db/kanboard
   pma:
