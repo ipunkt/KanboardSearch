@@ -91,6 +91,14 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      */
     public function apply()
     {
+        if( $this->isIdOnlySearch() ) {
+
+            $taskId = $this->valueToTaskOnlyId();
+            $this->query->eq(TaskModel::TABLE . '.id', $taskId);
+
+        return $this;
+    }
+
         $commentTaskIds = $this->getTaskIdsWithGivenComment();
         $titlesTaskIds = $this->getTaskIdsWithGivenTitles();
         $descriptionTaskIds = $this->getTaskIdsWithGivenDescription();
@@ -106,6 +114,25 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
         $this->query->in(TaskModel::TABLE . '.id', $task_ids);
 
         return $this;
+    }
+
+    protected function isIdOnlySearch() {
+        $trimmed_value = trim($this->value);
+        if( empty($trimmed_value) )
+            return false;
+
+        if( $trimmed_value[0] !== '#' )
+            return false;
+
+        return true;
+    }
+
+    protected function valueToTaskOnlyId() {
+        $trimmed_value = trim($this->value);
+
+        $value_without_hash = substr($trimmed_value, 1);
+
+        return (int)$value_without_hash;
     }
 
     /**
