@@ -80,7 +80,7 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
      */
     public function getAttributes()
     {
-        return array('title', 'comment', 'description', 'desc');
+        return array('title', 'comment', 'description', 'desc', 'taskId');
     }
 
     /**
@@ -96,8 +96,9 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
         $descriptionTaskIds = $this->getTaskIdsWithGivenDescription();
         $subtaskTitlesIds = $this->getTaskIdsWithGivenSubtaskTitles();
         $attachmentIds = $this->getTaskIdsWithGivenAttachmentName();
+        $taskIds = $this->getTaskIdsWithGivenId();
 
-        $task_ids = array_merge($commentTaskIds, $titlesTaskIds, $descriptionTaskIds, $subtaskTitlesIds, $attachmentIds);
+        $task_ids = array_merge($commentTaskIds, $titlesTaskIds, $descriptionTaskIds, $subtaskTitlesIds, $attachmentIds, $taskIds);
 
         if (empty($task_ids)) {
             $task_ids = array(-1);
@@ -195,4 +196,21 @@ class AdvancedSearchFilter extends BaseFilter implements FilterInterface
         }
         return array();
     }
+    /**
+     * Get task ids having this id}
+     *
+     * @access public
+     * @return array
+     */
+
+    private function getTaskIdsWithGivenId()
+	{
+		if(ctype_digit($this->value) and $this->config->get('id_search') == 1) {
+			return $this->db
+				->table(TaskModel::TABLE)
+				->eq(TaskModel::TABLE . '.id', $this->value)
+				->findAllByColumn(TaskModel::TABLE . '.id');
+		}
+		return array();
+	}
 }
